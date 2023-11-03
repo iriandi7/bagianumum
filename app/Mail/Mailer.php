@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class Mailer extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $body;
+    public $subject;
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($body, $subject)
+    {
+        $this->body = $body;
+        $this->subject = $subject;
+    }
+
+    public function envelope()
+    {
+        return new Envelope(
+            subject: $this->subject,
+        );
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->markdown('emails.message')->with('body',$this->body);
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array
+     */
+    public function attachments()
+    {
+        return [];
+    }
+}
