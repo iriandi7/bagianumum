@@ -37,9 +37,6 @@
                         @include('auth.partials.mobile-logo')
                         <div class="text-center 2xl:mb-10 mb-4">
                             <h4 class="font-medium">Sign in</h4>
-                            <div class="text-slate-500 text-base">
-                                Sign in to your account to start using Dashcode
-                            </div>
                         </div>
                         <!-- BEGIN: Login Form -->
                         <x-auth-session-status class="mb-4" :status="session('status')" />
